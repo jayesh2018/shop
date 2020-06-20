@@ -1,3 +1,18 @@
+<?php 
+session_start();
+require('../connection.php');
+if(!isset($_SESSION['user']))
+         {
+
+            echo '<script>
+        
+        location.href="../index.php";
+    </script>';
+         }
+
+$query = "SELECT B.user_id,C.name,C.MobileNo FROM referral_codes A INNER JOIN referral_codes B ON A.referral_code=B.referred_from INNER JOIN register_table C ON B.user_id = C.user_id where A.user_id=$_SESSION[user_id]";
+$result = mysqli_query($conn, $query);
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -31,7 +46,36 @@
         </div>
     </div>
     <div class="mt-3 text-center text-muted">
-        <p>No More</p>
+        <!-- <p>No More</p> -->
+        <table class="table table-striped table-bordered table-hover dt-responsive" width="100%" id="sample_3" cellspacing="0">
+			<thead>
+				<tr>
+					<!-- <th style="background-color: #006400!important;color: #FFFFFF!important;text-align: center;">ID</th>
+					<th style="background-color: #006400!important;color: #FFFFFF!important;text-align: center;" >NAME</th> -->
+					
+					<th scope="col">Name</th>
+					<th scope="col">Mobile No</th>
+			
+				</tr>
+			</thead>
+			<tbody>
+				<?php
+				
+				
+				
+				if ($result->num_rows > 0) {
+					while ($row = $result->fetch_object()) {
+                        echo"<tr>";
+						echo "<td>" . $row->name. "</td>";
+						echo "<td>" . $row->MobileNo . "</td>";
+                        echo"</ tr>";
+					}
+				} else {
+					echo "<tr><td>None</td><td>None</td></tr>";
+				}
+				?>
+			</tbody>
+		</table>
     </div>
 
 
