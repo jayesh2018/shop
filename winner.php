@@ -1,4 +1,4 @@
-<?php 
+<?php
 require ("connection.php");
 
 $query = "SELECT * FROM winner_history";
@@ -49,13 +49,13 @@ $result = mysqli_query($conn, $query);
 				<th style="background-color: #FF3C33!important;color: #FFFFFF!important;">COLOR</th>
 				<th style="background-color: #FF3C33!important;color: #FFFFFF!important;">DIGIT</th>
 				<th style="background-color: #FF3C33!important;color: #FFFFFF!important;">DATE</th>  -->
-				<th>ID</th>
+				<th>SR NO</th>
 				<th>COLOR</th>
 				<th>DIGIT</th>
-				<th>DATE</th>  
+				<th>DATE</th>
 
 
-					
+
 				</tr>
 			</thead>
 			<tbody>
@@ -80,9 +80,9 @@ $result = mysqli_query($conn, $query);
 					echo "<td>None</td></tr>";
 				}
 				?>
-			</tbody> 
+			</tbody>
 		</table>
 	</div>
-	
+
 </body>
 </html>

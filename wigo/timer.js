@@ -2,7 +2,7 @@ var minute = 0;
 var second = 0;
 function timer() {
     setInterval(() => {
-        if (second%5==0) {
+        if (second%10==0) {
             $.get("getLatestTime.php", function( data ) {
             //   alert( "Data Loaded: " + data );
             var d = new Date(data);

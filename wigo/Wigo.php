@@ -84,13 +84,13 @@ if (!isset($_SESSION['user'])) {
                         <a class="nav-link active" id="picky-tab" data-toggle="tab" href="#picky" role="tab" aria-controls="picky" aria-selected="true" data-val="Picky Record" onclick="myFunction(this)">Picky</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="parity-tab" data-toggle="tab" href="#picky" role="tab" aria-controls="parity" aria-selected="false" data-val="Parity Record" onclick="myFunction(this)">Parity</a>
+                        <a class="nav-link" id="parity-tab" data-toggle="tab" href="#parity" role="tab" aria-controls="parity" aria-selected="false" data-val="Parity Record" onclick="myFunction(this)">Parity</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="spare-tab" data-toggle="tab" href="#picky" role="tab" aria-controls="spare" aria-selected="false" data-val="Spare Record" onclick="myFunction(this)">Spare</a>
+                        <a class="nav-link" id="spare-tab" data-toggle="tab" href="#spare" role="tab" aria-controls="spare" aria-selected="false" data-val="Spare Record" onclick="myFunction(this)">Spare</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link" id="bacone-tab" data-toggle="tab" href="#picky" role="tab" aria-controls="bacone" aria-selected="false" data-val="Bacone Record" onclick="myFunction(this)">Bacone</a>
+                        <a class="nav-link" id="bacone-tab" data-toggle="tab" href="#bacone" role="tab" aria-controls="bacone" aria-selected="false" data-val="Bacone Record" onclick="myFunction(this)">Bacone</a>
                     </li>
                 </ul>
             </div>
