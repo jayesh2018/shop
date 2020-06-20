@@ -1,6 +1,6 @@
-<?php 
+<?php
 session_start();
-require ("../connection.php");
+require("../connection.php");
 $query = "SELECT choice,SUM(money) as 'total' FROM `purchased` where choice in('red','green','violet') GROUP BY choice ";
 $result = mysqli_query($conn, $query);
 
@@ -8,6 +8,7 @@ $query1 = "SELECT choice,SUM(money) as 'total'FROM `purchased` where choice not 
 $result1 = mysqli_query($conn, $query1);
 ?>
 <html>
+
 <head>
   <!-- Meta tags -->
   <meta charset="utf-8">
@@ -25,55 +26,57 @@ $result1 = mysqli_query($conn, $query1);
       <h1>Current Trade Status</h1>
     </div>
     <div class="btnn">
-    <a href="logout.php" style="float:right" class="btn btn-lg btn-outline-danger">LogOut</a>
+      <a href="logout.php" style="float:right" class="btn btn-lg btn-outline-danger">LogOut</a>
     </div>
 
   </div>
   <div class="container">
     <div class=" row clr main">
-    <?php 
-           if ($result->num_rows > 0) {
-       
-        while($row = $result->fetch_object()) {  
-    ?>
-      <div class="col-lg-4">
-        <center><button type="button" class="btn btn-lg" style="color:white;background-color:<?=$row->choice;?>" >
-            <div class="row">
-              <h3><?=$row->choice;?></h3>
-            </div>
-            <div class="row">
-              <h4>Rs.<span><?=$row->total;?></span></h4>
-            </div>
-          </button></center>
-      </div>
-        <?php } }?>
+      <?php
+      if ($result->num_rows > 0) {
+
+        while ($row = $result->fetch_object()) {
+      ?>
+          <div class="col-lg-4">
+            <center><button type="button" class="btn btn-lg" style="color:white;background-color:<?= $row->choice; ?>">
+                <div class="row">
+                  <h3><?= $row->choice; ?></h3>
+                </div>
+                <div class="row">
+                  <h4>Rs.<span><?= $row->total; ?></span></h4>
+                </div>
+              </button></center>
+          </div>
+      <?php }
+      } ?>
     </div>
   </div>
   <div class="container">
     <div class="row">
 
-    <?php 
-           if ($result1->num_rows > 0) {
-       
-        while($row1 = $result1->fetch_object()) {  
-    ?>
-      <div class="col-lg-2.5 num">
-        <center><button style="color:white"type="button" class="chn btn btn-lg">
-            <div class="row">
-              <h3><?=$row1->choice+1;?></h3>
-            </div>
-            <div class="row">
+      <?php
+      if ($result1->num_rows > 0) {
 
-              <h5>Rs.<span><?=$row1->total;?></span></h5>
-            </div>
-          </button></center>
-      </div>
-      <?php } }?>
+        while ($row1 = $result1->fetch_object()) {
+      ?>
+          <div class="col-lg-2.5 num">
+            <center><button style="color:white" type="button" class="chn btn btn-lg">
+                <div class="row">
+                  <h3><?= $row1->choice + 1; ?></h3>
+                </div>
+                <div class="row">
+
+                  <h5>Rs.<span><?= $row1->total; ?></span></h5>
+                </div>
+              </button></center>
+          </div>
+      <?php }
+      } ?>
 
     </div>
   </div>
   <div class="row">
-  <button type="button" class="btn btn-lg declare btn-warning">Declare result</button>
+    <button type="button" class="btn btn-lg declare btn-warning">Declare result</button>
 
   </div>
 </body>
