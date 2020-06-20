@@ -1,6 +1,5 @@
 <?php
 
-date_default_timezone_set("asia/kolkata");
 require('./shopgold.xyz/connection.php');
 
 $insertWinnerHistoryQuery = "INSERT INTO winner_history (color,digit,room) (SELECT color,digit,room FROM winner WHERE color <> '' AND digit <> 0 )";
@@ -11,7 +10,6 @@ $truncateWinnerQuery = "TRUNCATE TABLE winner";
 $result = mysqli_query($conn,$truncateWinnerQuery);
 echo $truncateWinnerQuery . $result . "\n<br>";
 
-// $insertWinnerQuery = "INSERT INTO winner (game_date) VALUES(ADDTIME(now(),'12:33:00'))";
 $dateTime = new DateTime();
 $timezone = new DateTimeZone('Asia/Kolkata');
 $dateTime->setTimezone($timezone);
