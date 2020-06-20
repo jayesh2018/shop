@@ -1,0 +1,35 @@
+
+
+#bg {
+    margin: 0;
+    padding: 0;
+    background-color: #c7edf2;
+  }
+  #login{
+    margin-top: 120px;
+    max-width: 600px;
+    height:auto;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+  }
+  #register{
+    margin-top: 120px;
+    max-width: 600px;
+    height:auto;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+  }
+  #resetPassword{
+    margin-top: 120px;
+    max-width: 600px;
+    height:auto;
+    border: 1px solid #9C9C9C;
+    background-color: #EAEAEA;
+  }
+
+
+
+
+.form-group{
+    font-weight: bold;
+}

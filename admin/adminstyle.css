@@ -1,0 +1,32 @@
+.heading
+{
+  height:auto;
+  background-color: #2d374d;
+  margin-left: 0;
+  margin-top: 0;
+  margin-right: 0;
+  margin-bottom: 20px;
+  /* position:fixed; */
+  width:100%;
+}
+h1
+{
+  color: white;
+  /* position:relative; */
+  margin:50px;
+  font-family: 'Acme', sans-serif;
+  align-self: center;
+
+}
+.btnn
+{
+margin: auto;
+align-content:center;
+
+}
+
+.main{
+  font-family: 'Roboto Slab', serif;
+  margin-top: 50px;
+  width:50%;
+}

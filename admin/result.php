@@ -1,5 +1,12 @@
-<?php
-require("./../connection.php");
+<?php 
+session_start();
+require('../connection.php');
+if(!isset($_SESSION['admin']))
+{
+  echo '<script>
+  location.href="login.php";
+  </script>';
+}
 
 $query = "SELECT Id,name from register_table where Id IN (SELECT customer_id FROM purchased WHERE choice  IN (Select choice from winner order by game_date DESC ))";
 
