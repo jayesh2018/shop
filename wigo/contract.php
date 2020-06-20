@@ -3,7 +3,8 @@
 session_start();
 
 require('../connection.php');
-
+print_r($_POST);
+/*
 if($_SESSION['user_id']!='' || $_SESSION['user_id']!=null) {
     // print_r($_POST);
     $customer_id = $_SESSION['user_id'];
@@ -26,10 +27,12 @@ if($_SESSION['user_id']!='' || $_SESSION['user_id']!=null) {
                 $query = "UPDATE  `tbl_wallet` SET my_money='$my_money' WHERE  user_id= '$customer_id'";
                 $result = mysqli_query($conn,$query);
                 if($result){
-                    
+
                     echo '<script>location.href="http://shopgold.xyz/wigo/Wigo.php";</script>';
                 }
             }
         }
     }
 }
+
+*/

@@ -20,7 +20,7 @@ if (isset($_POST['Mobile']) && isset($_POST['pass'])){
     else{
 	    echo '<script>
             alert("username or password does not match");
-            location.href="index.php";
+            location.href="login.php";
             </script>';
     }
 }
