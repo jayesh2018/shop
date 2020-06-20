@@ -7,13 +7,13 @@ $(document).ready(function () {
       //   alert( "success" );
     }).done(function () {
       // alert( "second success" );
-      // location.href="result.php";
+      location.href="result.php";
     }).fail(function () {
       // alert( "error" );
-      // location.href="result.php";
+      location.href="result.php";
     }).always(function () {
       // alert( "finished" );
-      // location.href="result.php";
+      location.href="result.php";
     });
 
   });

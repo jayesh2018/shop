@@ -3,6 +3,7 @@ require('./../connection.php');
 
 $pickycolor = $_POST['pickycolor'];
 $paritycolor = $_POST['paritycolor'];
+$sparecolor = $_POST['sparecolor'];
 $baconecolor = $_POST['baconecolor'];
 $pickynumber = $_POST['pickynumber'];
 $paritynumber = $_POST['paritynumber'];
@@ -10,7 +11,7 @@ $sparenumber = $_POST['sparenumber'];
 $baconenumber = $_POST['baconenumber'];
 print_r($_POST);
 
-$stmt = $conn->prepare("UPDATE winner SET color = '?', digit= ? WHERE room = '?'");
+$stmt = $conn->prepare("UPDATE winner SET color = ?, digit= ? WHERE room = ?");
 $stmt->bind_param("sis", $color, $digit, $room);
 
 // set parameters and execute
@@ -46,7 +47,6 @@ while ($row = $result->fetch_assoc()) {
     $money = $money * 8.2;
     $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
     $result1 = mysqli_query($conn, $query);
-    echo $result1;
 }
 
 $arr = json_decode($pickycolor);
@@ -61,108 +61,34 @@ $spareColorArray = createInClause($arr);
 $arr = json_decode($baconecolor);
 $baconeColorArray = createInClause($arr);
 
-$query = "SELECT money,choice,customer_id FROM purchased WHERE (room = 'parity' AND choice IN ($parityColorArray)) OR (room = 'picky' AND choice IN ($pickyColorArray)) OR(room = 'spare' AND choice IN ($spareColorArray)) OR(room = 'bacone' AND choice IN ($baconeColorArray))";
-$result = mysqli_query($conn, $query);
-// print_r();
-$result = mysqli_query($conn, $query);
-switch ($color) {
-    case '["green"]':
-    case '["red"]':
-        while ($row = $result->fetch_assoc()) {
-            $money = $row['money'];
-            if ($money < 100) {
-                $money = $money * 1.9;
-            } else {
-                $money = $money * 1.98;
-            }
-            $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
-            $result1 = mysqli_query($conn, $query);
-        }
-        echo "one";
-        break;
-    case '["red","violet"]':
-        echo "two";
-        while ($row = $result->fetch_assoc()) {
-            $money = $row['money'];
-            switch ($row['choice']) {
-                case 'red':
-                    if ($money < 100) {
-                        $money = $money*1.45;
-                    } else {
-                        $money = $money*1.49;
-                    }
-                    break;
-                case 'violet':
-                    $money = $money*4.6;
-                    break;
-                default:
-                    echo "came in default case1";
-            }
-            $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
-            $result1 = mysqli_query($conn, $query);
-        }
-        break;
-    case '["green","violet"]':
-        echo "three";
-        while ($row = $result->fetch_assoc()) {
-            $money = $row['money'];
-            switch ($row['choice']) {
-                case 'green':
-                    if ($money < 100) {
-                        $money = $money*1.45;
-                    } else {
-                        $money = $money*1.49;
-                    }
-                    break;
-                case 'violet':
-                    $money = $money*4.6;
-                    break;
-                default:
-                    echo "came in default case2";
-            }
-            $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
-            $result1 = mysqli_query($conn, $query);
-        }
-        break;
-    default:
-        echo "came in default cas3";
-}
-
-
-
-$conn->close();
-/*
-$color = $_POST['color'];
-$digit = $_POST['number'];
-
-
-
-$query = "UPDATE winner SET color = '$color', digit= $digit";
-// echo $query;
+$query = "SELECT money,choice,room,customer_id FROM purchased WHERE (room = 'parity' AND choice IN ($parityColorArray)) OR (room = 'picky' AND choice IN ($pickyColorArray)) OR(room = 'spare' AND choice IN ($spareColorArray)) OR(room = 'bacone' AND choice IN ($baconeColorArray))";
 $result = mysqli_query($conn, $query);
 
-$arr = json_decode($color);
-$colorArr = createInClause($arr);
-
-$query = "SELECT money,choice,customer_id FROM purchased WHERE choice IN ($digit)";
-$result = mysqli_query($conn, $query);
 while ($row = $result->fetch_assoc()) {
-    $money = $row['money'];
-    $money = $money * 8.2;
-    $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
-    $result1 = mysqli_query($conn, $query);
-    echo $result1;
+    print_r($row);
+    switch ($row['room']) {
+        case 'picky':
+            checkWinningColorAndUpdateBalance($row, $pickycolor, $conn);
+            break;
+        case 'parity':
+            checkWinningColorAndUpdateBalance($row, $paritycolor, $conn);
+            break;
+        case 'spare':
+            checkWinningColorAndUpdateBalance($row, $sparecolor, $conn);
+            break;
+        case 'bacone':
+            checkWinningColorAndUpdateBalance($row, $baconecolor, $conn);
+            break;
+        default:
+            print_r($row);
+            echo "default case new";
+    }
 }
-
-
-$query = "SELECT money,choice,customer_id FROM purchased WHERE choice IN ($colorArr)";
-$result = mysqli_query($conn, $query);
-// print_r();
-$result = mysqli_query($conn, $query);
-switch ($color) {
-    case '["green"]':
-    case '["red"]':
-        while ($row = $result->fetch_assoc()) {
+function checkWinningColorAndUpdateBalance($row, $roomColor, $conn)
+{
+    switch ($roomColor) {
+        case '["green"]':
+        case '["red"]':
             $money = $row['money'];
             if ($money < 100) {
                 $money = $money * 1.9;
@@ -171,61 +97,57 @@ switch ($color) {
             }
             $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
             $result1 = mysqli_query($conn, $query);
-        }
-        echo "one";
-        break;
-    case '["red","violet"]':
-        echo "two";
-        while ($row = $result->fetch_assoc()) {
+            echo $result1;
+            break;
+        case '["red","violet"]':
+            echo "two";
             $money = $row['money'];
             switch ($row['choice']) {
                 case 'red':
                     if ($money < 100) {
-                        $money = $money*1.45;
+                        $money = $money * 1.45;
                     } else {
-                        $money = $money*1.49;
+                        $money = $money * 1.49;
                     }
+                    $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
+                    $result1 = mysqli_query($conn, $query);
                     break;
                 case 'violet':
-                    $money = $money*4.6;
+                    $money = $money * 4.6;
+                    $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
+                    $result1 = mysqli_query($conn, $query);
                     break;
                 default:
                     echo "came in default case1";
             }
-            $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
-            $result1 = mysqli_query($conn, $query);
-        }
-        break;
-    case '["green","violet"]':
-        echo "three";
-        while ($row = $result->fetch_assoc()) {
+            break;
+        case '["green","violet"]':
+            echo "three";
             $money = $row['money'];
             switch ($row['choice']) {
                 case 'green':
                     if ($money < 100) {
-                        $money = $money*1.45;
+                        $money = $money * 1.45;
                     } else {
-                        $money = $money*1.49;
+                        $money = $money * 1.49;
                     }
+                    $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
+                    $result1 = mysqli_query($conn, $query);
                     break;
                 case 'violet':
-                    $money = $money*4.6;
+                    $money = $money * 4.6;
+                    $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
+                    $result1 = mysqli_query($conn, $query);
                     break;
                 default:
                     echo "came in default case2";
             }
-            $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
-            $result1 = mysqli_query($conn, $query);
-        }
-        break;
-    default:
-        echo "came in default cas3";
+            break;
+        default:
+            echo "came in default cas3";
+    }
 }
-*/
 function createInClause($arr)
 {
     return '\'' . implode('\', \'', $arr) . '\'';
 }
-
-
-

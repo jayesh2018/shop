@@ -36,9 +36,9 @@
 				<label for="green1">Green</label><br>
 				<input type="radio" id="red1" name="pickycolor" value='["red"]'>
 				<label for="red1">Red</label><br>
-				<input type="radio" id="redviolet1" name="pickycolor" value='["red,violet"]'>
+				<input type="radio" id="redviolet1" name="pickycolor" value='["red","violet"]'>
 				<label for="redviolet1">Red and Violet</label><br>
-				<input type="radio" id="greenviolet1" name="pickycolor" value='["green,violet"]'>
+				<input type="radio" id="greenviolet1" name="pickycolor" value='["green","violet"]'>
 				<label for="greenviolet1">Green and Violet</label>
 			</div>
 
@@ -49,9 +49,9 @@
 				<label for="green2">Green</label><br>
 				<input type="radio" id="red2" name="paritycolor" value='["red"]'>
 				<label for="red2">Red</label><br>
-				<input type="radio" id="redviolet2" name="paritycolor" value='["red,violet"]'>
+				<input type="radio" id="redviolet2" name="paritycolor" value='["red","violet"]'>
 				<label for="redviolet2">Red and Violet</label><br>
-				<input type="radio" id="greenviolet2" name="paritycolor" value='["green,violet"]'>
+				<input type="radio" id="greenviolet2" name="paritycolor" value='["green","violet"]'>
 				<label for="greenviolet2">Green and Violet</label>
 			</div>
 
@@ -62,9 +62,9 @@
 				<label for="green3">Green</label><br>
 				<input type="radio" id="red3" name="sparecolor" value='["red"]'>
 				<label for="red3">Red</label><br>
-				<input type="radio" id="redviolet3" name="sparecolor" value='["red,violet"]'>
+				<input type="radio" id="redviolet3" name="sparecolor" value='["red","violet"]'>
 				<label for="redviolet3">Red and Violet</label><br>
-				<input type="radio" id="greenviolet3" name="sparecolor" value='["green,violet"]'>
+				<input type="radio" id="greenviolet3" name="sparecolor" value='["green","violet"]'>
 				<label for="greenviolet3">Green and Violet</label>
 			</div>
 
@@ -76,9 +76,9 @@
 				<label for="green4">Green</label><br>
 				<input type="radio" id="red4" name="baconecolor" value='["red"]'>
 				<label for="red4">Red</label><br>
-				<input type="radio" id="redviolet4" name="baconecolor" value='["red,violet"]'>
+				<input type="radio" id="redviolet4" name="baconecolor" value='["red","violet"]'>
 				<label for="redviolet4">Red and Violet</label><br>
-				<input type="radio" id="greenviolet4" name="baconecolor" value='["green,violet"]'>
+				<input type="radio" id="greenviolet4" name="baconecolor" value='["green","violet"]'>
 				<label for="greenviolet4">Green and Violet</label>
 			</div>
 
