@@ -23,27 +23,6 @@ $result = mysqli_query($conn, $query);
 	<!-- Bootstrap css -->
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-	<style>
-		.dot {
-			height: 25px;
-			width: 25px;
-			border-radius: 50%;
-			display: inline-block;
-			margin-right: 5px;
-		}
-
-		.green {
-			background-color: green;
-		}
-
-		.violet {
-			background-color: #60c;
-		}
-
-		.red {
-			background-color: red;
-		}
-	</style>
 </head>
 
 <body>
@@ -71,14 +50,14 @@ $result = mysqli_query($conn, $query);
 				if ($result->num_rows > 0) {
 					while ($row = $result->fetch_object()) {
 						$msg="Active";$class="badge-success";
-            if($row->status==2){
+            if($row->is_Active==0){
               $msg="InActive";$class="badge-danger";
             }
 					
 						
 						echo "<td>" . $row->name. "</td>";
 						echo "<td>" . $row->MobileNo . "</td>";
-						echo "<td><span class='badge".$class."'>".$msg."</span></td></tr>";
+						echo "<td><span class='badge ".$class."'>".$msg."</span></td></tr>";
 					}
 				} else {
 					echo "<tr><td>None</td><td>None</td><td>None</td></tr>";
