@@ -77,8 +77,6 @@ $result1 = mysqli_query($conn, $query1);
   </div>
   <div class="row">
     <a href="select_winner.php" class="btn btn-lg declare btn-warning">Declare result</a>
-    <!-- <button type="button" class="btn btn-lg declare btn-warning"><a href="select_winner.php">Declare result</a></button> -->
-
   </div>
 </body>
 
