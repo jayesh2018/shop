@@ -1,6 +1,17 @@
 <?php
 session_start();
 require('./../connection.php');
+
+if (isset($_SESSION['user_id'])) {
+    $user_id = $_SESSION['user_id'];
+    $query = "SELECT referral_code code FROM referral_codes WHERE user_id = '$user_id'";
+    $result = mysqli_query($conn, $query);
+    $result = mysqli_fetch_array($result);
+    $code = "http://" . $_SERVER['SERVER_NAME'] . "/Register.php?code=" . $result['code'];
+} else {
+    $code =  " Failed !";
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,44 +66,6 @@ require('./../connection.php');
             background-color: white;
             color: black;
         }
-
-        .tooltip {
-            position: relative;
-            display: inline-block;
-        }
-
-        .tooltip .tooltiptext {
-            visibility: hidden;
-            width: 140px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            border-radius: 6px;
-            padding: 5px;
-            position: absolute;
-            z-index: 1;
-            bottom: 150%;
-            left: 50%;
-            margin-left: -75px;
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .tooltip .tooltiptext::after {
-            content: "";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: #555 transparent transparent transparent;
-        }
-
-        .tooltip:hover .tooltiptext {
-            visibility: visible;
-            opacity: 1;
-        }
     </style>
 
 </head>
@@ -108,30 +81,76 @@ require('./../connection.php');
             </div>
             <div class="mt-3 code-container">
                 <h4 class="mb-5">Scan QR code above or use Invite Code below</h4>
-                <input id="myCode" type="text" value="<?php
-                                            if (isset($_SESSION['user_id'])) {
-                                                $user_id = $_SESSION['user_id'];
-                                                $query = "SELECT referral_code code FROM `referral_codes` WHERE user_id = '$user_id'";
-                                                $result = mysqli_query($conn, $query);
-                                                $result = mysqli_fetch_array($result);
-                                                echo "http://shopgold.xyz/Register.php?code=".$result['code'];
-                                            } else {
-                                                echo ("failed<br>");
-                                            }
-                                            ?>">
+                <input id="copyTarget" type="text" value=<?php echo $code ?> >
+            </div>
+            <div class="mt-3 code-container">
+                <button id="copyButton">Click To Copy</button>
             </div>
         </div>
     </div>
 
-
-
-
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+
+    <script>
+        function copyToClipboard(elem) {
+            // create hidden text element, if it doesn't already exist
+            var targetId = "_hiddenCopyText_";
+            var isInput = elem.tagName === "INPUT" || elem.tagName === "TEXTAREA";
+            var origSelectionStart, origSelectionEnd;
+            if (isInput) {
+                // can just use the original source element for the selection and copy
+                target = elem;
+                origSelectionStart = elem.selectionStart;
+                origSelectionEnd = elem.selectionEnd;
+            } else {
+                // must use a temporary form element for the selection and copy
+                target = document.getElementById(targetId);
+                if (!target) {
+                    var target = document.createElement("textarea");
+                    target.style.position = "absolute";
+                    target.style.left = "-9999px";
+                    target.style.top = "0";
+                    target.id = targetId;
+                    document.body.appendChild(target);
+                }
+                target.textContent = elem.textContent;
+            }
+            // select the content
+            var currentFocus = document.activeElement;
+            target.focus();
+            target.setSelectionRange(0, target.value.length);
+
+            // copy the selection
+            var succeed;
+            try {
+                succeed = document.execCommand("copy");
+            } catch (e) {
+                succeed = false;
+            }
+            // restore original focus
+            if (currentFocus && typeof currentFocus.focus === "function") {
+                currentFocus.focus();
+            }
+
+            if (isInput) {
+                // restore prior selection
+                elem.setSelectionRange(origSelectionStart, origSelectionEnd);
+            } else {
+                // clear temporary content
+                target.textContent = "";
+            }
+            return succeed;
+        }
+        $(document).ready(function() {
+            $("#copyButton").click(function() {
+                copyToClipboard(document.getElementById("copyTarget"));
+            });
+        });
+    </script>
 </body>
 
 </html>
