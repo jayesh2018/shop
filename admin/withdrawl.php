@@ -14,7 +14,12 @@ $result = mysqli_query($conn, $query);
 
 <head>
   <title>Withdrawl</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
   <style>
     .my-custom-scrollbar {
       position: relative;
@@ -53,7 +58,7 @@ $result = mysqli_query($conn, $query);
             while ($row = $result->fetch_object()) {
           ?>
               <tr>
-                <td class="jName" data-updateid=<?= $row->user_id; ?>><?= $row->name; ?></td>
+                <td data-toggle="modal" data-target="#myModal" class="jName" data-updateid=<?= $row->user_id; ?>><?= $row->name; ?></td>
                 <td><?= $row->amount; ?></td>
                 <!-- <td id="tdchng_<?= $row->user_id; ?>"><?= $status; ?> </td> -->
                 <td><button type="button" class="btn btn-success Req" data-updateid="<?= $row->user_id; ?>" data-id="1">Allow</button> &nbsp <button type="button" class="btn btn-danger Req" data-id="2" data-updateid="<?= $row->user_id; ?>">Deny</button></td>
@@ -75,7 +80,30 @@ $result = mysqli_query($conn, $query);
         </tbody>
       </table>
     </div>
+    <!-- The Modal -->
+    <div class="modal fade" id="myModal">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
 
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Loading </h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            Fetching...
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
   </div>
 
 
@@ -85,7 +113,18 @@ $result = mysqli_query($conn, $query);
   <script>
     $(document).ready(function() {
       $('.jName').click(function() {
-        console.log($(this).html());
+        $td = $(this);
+        var id = $td.attr("data-updateid")
+        console.log(id);
+        $.post('./php/getBankDetailsByID.php', {
+            id: id
+          },
+          function(data) {
+            console.log(data);
+            data = JSON.parse(data);
+            $(".modal-title").html("Bank details Of " + $td.html());
+            $(".modal-body").html(data.html);
+          })
       });
       $('.Req').click(function() {
         var id = $(this).data('id');
