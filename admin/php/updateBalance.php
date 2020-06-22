@@ -1,5 +1,5 @@
 <?php
-require('./../connection.php');
+require('./../../connection.php');
 
 $pickycolor = $_POST['pickycolor'];
 $paritycolor = $_POST['paritycolor'];

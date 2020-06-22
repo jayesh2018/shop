@@ -2,7 +2,7 @@
 
 require('./shopgold.xyz/connection.php');
 
-$insertWinnerHistoryQuery = "INSERT INTO winner_history (color,digit,room) (SELECT color,digit,room FROM winner WHERE color <> '' AND digit <> 0 )";
+$insertWinnerHistoryQuery = "INSERT INTO winner_history (color,digit,room,date_added) SELECT color,digit,room,game_date FROM winner WHERE color <> '' AND digit <> 0 ";
 $result = mysqli_query($conn,$insertWinnerHistoryQuery);
 echo $insertWinnerHistoryQuery . $result . "\n<br>";
 
