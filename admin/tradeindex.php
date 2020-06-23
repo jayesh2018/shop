@@ -62,7 +62,7 @@ $result1 = mysqli_query($conn, $query1);
           <div class="col-lg-2.5 num">
             <center><button style="color:white" type="button" class="chn btn btn-lg">
                 <div class="row">
-                  <h3><?= $row1->choice + 1; ?></h3>
+                  <h3><?= $row1->choice; ?></h3>
                 </div>
                 <div class="row">
 
