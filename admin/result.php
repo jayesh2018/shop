@@ -1,6 +1,8 @@
 <?php 
 session_start();
 require('../connection.php');
+$sql="";
+$room="0";
 if(!isset($_SESSION['admin']))
 {
   echo '<script>
@@ -8,10 +10,14 @@ if(!isset($_SESSION['admin']))
   </script>';
 }
 
-$query = "SELECT Id,name from register_table where Id IN (SELECT customer_id FROM purchased WHERE choice  IN (Select choice from winner order by game_date DESC ))";
-
-// echo $query;
-$result = mysqli_query($conn, $query);
+if(isset($_GET['room']))
+{	$room=$_GET['room'];
+	if($room!="0")
+	{
+		$sql=" where room='".$room."'";
+		
+	}
+}
 ?>
 <!DOCTYPE html>
 
@@ -51,6 +57,23 @@ $result = mysqli_query($conn, $query);
 <body>
 
 	<h1 style="margin-top: 15px; text-align: center;"> WINNER LIST</h1>
+	<div class="px-2 pt-2">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-column justify-content-center">
+                                <form action="#" class="form-inline">
+                                <span> 
+								<select name="room" id="room" class="form-control">
+								<option value="0">--Select Room--</option>
+
+								<option value="picky" <?php if($room=="picky") echo "selected";?>>picky</option>
+								<option value="parity" <?php if($room=="parity") echo "selected";?>>parity</option>
+								<option value="spare" <?php if($room=="spare") echo "selected";?>>spare</option>
+								<option value="bacone" <?php if($room=="bacone") echo "selected";?> >bacone</option>
+								</select>
+								<button class="btn btn-success btn-sm">search</button> </span>
+								</form>
+                            </div>
+                   </div>
 
 	               <!-- count down -->
 				   <div class="px-2 pt-2">
@@ -73,6 +96,7 @@ $result = mysqli_query($conn, $query);
 					<!-- <th style="background-color: #006400!important;color: #FFFFFF!important;text-align: center;">ID</th>
 					<th style="background-color: #006400!important;color: #FFFFFF!important;text-align: center;" >NAME</th> -->
 					<th scope="col">Color</th>
+					<th scope="col">Room</th>
 					<th scope="col">Digit</th>
 					<th scope="col">Date</th>
 					<th scope="col">Period</th>
@@ -80,7 +104,7 @@ $result = mysqli_query($conn, $query);
 			</thead>
 			<tbody>
 				<?php
-				$query = "SELECT * FROM winner_history order by date_added desc";
+				$query = "SELECT * FROM winner_history $sql order by date_added desc";
 				// echo $query;
 				$result = mysqli_query($conn, $query);
 				if ($result->num_rows > 0) {
@@ -96,6 +120,7 @@ $result = mysqli_query($conn, $query);
 
 						// print_r($colors);
 						// echo "<td>" . $row['color'] . "</td>";
+						echo "<td>" . $row['room'] . "</td>";
 						echo "<td>" . $row['digit'] . "</td>";
 						echo "<td>" . $row['date_added'] . "</td>";
 						echo "<td>" . strtotime($row['date_added']) . "</td></tr>";

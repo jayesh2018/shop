@@ -8,7 +8,7 @@ if(!isset($_SESSION['admin']))
   </script>';
 }
 
-$query = "SELECT user_id,name,MobileNo,is_Active from register_table";
+$query = "SELECT t1.user_id,t1.name,t1.MobileNo,t1.is_Active,t2.my_money from register_table as t1 INNER JOIN tbl_wallet as t2 ON t1.user_id=t2.user_id";
 $result = mysqli_query($conn, $query);
 ?>
 <!DOCTYPE html>
@@ -39,6 +39,7 @@ $result = mysqli_query($conn, $query);
 					
 					<th scope="col">Name</th>
 					<th scope="col">Mobile No</th>
+					<th scope="col">Balance</th>
 					<th scope="col">Is Active</th>
 				</tr>
 			</thead>
@@ -57,6 +58,7 @@ $result = mysqli_query($conn, $query);
 						
 						echo "<td>" . $row->name. "</td>";
 						echo "<td>" . $row->MobileNo . "</td>";
+						echo "<td>" . $row->my_money. "</td>";
 						echo "<td><span class='badge ".$class."'>".$msg."</span></td></tr>";
 					}
 				} else {
