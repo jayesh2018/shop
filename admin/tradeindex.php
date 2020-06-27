@@ -1,11 +1,9 @@
 <?php
 session_start();
 require("../connection.php");
-$query = "SELECT choice,SUM(money) as 'total' FROM `purchased` where choice in('red','green','violet') GROUP BY choice ";
+$query = "SELECT room,choice,SUM(money) as 'total' FROM `purchased` GROUP BY choice,room order by room";
 $result = mysqli_query($conn, $query);
 
-$query1 = "SELECT choice,SUM(money) as 'total'FROM `purchased` where choice not in('red','green','violet') GROUP BY choice ";
-$result1 = mysqli_query($conn, $query1);
 ?>
 <html>
 
@@ -30,15 +28,36 @@ $result1 = mysqli_query($conn, $query1);
     </div>
 
   </div>
+  
   <div class="container">
-    <div class=" row clr main">
       <?php
+      $room="";
       if ($result->num_rows > 0) {
 
         while ($row = $result->fetch_object()) {
-      ?>
+            if($room=="" ||$room!=$row->room)
+            {
+              $room=$row->room;
+            ?>
+      
+    <div class=" row clr main">
+              <div class="col-lg-12">
+                <h4> <?=$room;?> trades:</h4>
+              </div>
+              
+            <?php }?> 
           <div class="col-lg-4">
-            <center><button type="button" class="btn btn-lg" style="color:white;background-color:<?= $row->choice; ?>">
+          <?php
+
+            if(is_numeric($row->choice))
+            {
+              $color="#711968";    
+            }else
+            {
+              $color=$row->choice;
+            }
+            ?>
+            <center><button type="button" class="btn btn-lg" style="color:white;background-color:<?= $color; ?>">
                 <div class="row">
                   <h3><?= $row->choice; ?></h3>
                 </div>
@@ -47,36 +66,24 @@ $result1 = mysqli_query($conn, $query1);
                 </div>
               </button></center>
           </div>
-      <?php }
-      } ?>
+<?php 
+          if($room!=$row->room && $room!="")
+            {
+              ?>
     </div>
-  </div>
-  <div class="container">
-    <div class="row">
-
-      <?php
-      if ($result1->num_rows > 0) {
-
-        while ($row1 = $result1->fetch_object()) {
-      ?>
-          <div class="col-lg-2.5 num">
-            <center><button style="color:white" type="button" class="chn btn btn-lg">
-                <div class="row">
-                  <h3><?= $row1->choice; ?></h3>
-                </div>
-                <div class="row">
-
-                  <h5>Rs.<span><?= $row1->total; ?></span></h5>
-                </div>
-              </button></center>
-          </div>
-      <?php }
+  
+  
+  <?php
+            }
+ }
       } ?>
 
-    </div>
-  </div>
+</div>
+
+<div class="container">
   <div class="row">
     <a href="select_winner.php" class="btn btn-lg declare btn-warning">Declare result</a>
+  </div>
   </div>
 </body>
 
