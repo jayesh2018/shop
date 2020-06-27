@@ -84,16 +84,6 @@
 
 
 		</div>
-		<!--<div class="col-md-6" style="margin-left: 2px;margin-top: 5px;">-->
-		<!--	<label for="">Color</label>-->
-		<!--	<select name="color" id="" class="form-control">-->
-		<!--		<option value="">Select value</option>-->
-		<!--		<option value='["green"]'>Green</option>-->
-		<!--		<option value='["red"]'>Red</option>-->
-		<!--		<option value='["red","violet"]'>Red and Violet</option>-->
-		<!--		<option value='["green","violet"]'>Green and Violet</option>-->
-		<!--	</select>-->
-		<!--</div>-->
 
 		<br>
 		<div class="row">
@@ -101,6 +91,7 @@
 				<label for="" style="margin-left: 10px;">Number</label>
 				<select name="pickynumber" id="" class="form-control" style="margin-left: 10px;">
 					<option value="">Select value</option>
+					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -117,6 +108,7 @@
 				<label for="" style="margin-left: 10px;">Number</label>
 				<select name="paritynumber" id="" class="form-control" style="margin-left: 10px;">
 					<option value="">Select value</option>
+					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -132,6 +124,7 @@
 				<label for="" style="margin-left: 10px;">Number</label>
 				<select name="sparenumber" id="" class="form-control" style="margin-left: 10px;">
 					<option value="">Select value</option>
+					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>
@@ -147,6 +140,8 @@
 				<label for="" style="margin-left: 10px;">Number</label>
 				<select name="baconenumber" id="" class="form-control" style="margin-left: 10px;">
 					<option value="">Select value</option>
+					<option value="0">0</option>
+					<option value="0">0</option>
 					<option value="1">1</option>
 					<option value="2">2</option>
 					<option value="3">3</option>

@@ -40,13 +40,15 @@ $stmt->close();
 $arr = json_decode($color);
 $colorArr = createInClause($arr);
 
-$query = "SELECT money,choice,customer_id FROM purchased WHERE (choice = $pickynumber AND room = 'picky') OR (choice = $paritynumber AND room = 'parity') OR (choice = $sparenumber AND room = 'spare') OR (choice = $baconenumber AND room = 'bacone')";
+$query = "SELECT money,choice,customer_id FROM purchased WHERE (choice = '$pickynumber' AND room = 'picky') OR (choice = '$paritynumber' AND room = 'parity') OR (choice = '$sparenumber' AND room = 'spare') OR (choice = '$baconenumber' AND room = 'bacone')";
+echo $query;
 $result = mysqli_query($conn, $query);
 while ($row = $result->fetch_assoc()) {
     $money = $row['money'];
     $money = $money * 8.2;
     $query = "UPDATE tbl_wallet SET my_money = my_money + $money WHERE user_id = " . $row['customer_id'];
     $result1 = mysqli_query($conn, $query);
+    echo "cant come here";
 }
 
 $arr = json_decode($pickycolor);
