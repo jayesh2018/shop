@@ -85,7 +85,7 @@ if (!isset($_SESSION['user'])) {
                 <li><a class="nav-link active" data-toggle="tab" href="#tab-1" style="color: #bd2e2a!important;text-transform: uppercase;" data-value="parity">Parity</a></li>
                 <li><a class="nav-link" data-toggle="tab" href="#tab-3" style="color: #bd2e2a!important;text-transform: uppercase;" data-value="picky">Picky </a></li>
                 <li><a class="nav-link" data-toggle="tab" href="#tab-2" style="color: #bd2e2a!important;text-transform: uppercase;" data-value="spare">Spare</a></li>
-                <li><a class="nav-link" data-toggle="tab" href="#tab-4" style="color: #bd2e2a!important;text-transform: uppercase;" data-value="spare">Bacone</a></li>
+                <li><a class="nav-link" data-toggle="tab" href="#tab-4" style="color: #bd2e2a!important;text-transform: uppercase;" data-value="bacone">Bacone</a></li>
             </ul>
             <!-- Main Content Start-->
             <div class="px-2 pt-2">
