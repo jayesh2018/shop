@@ -101,7 +101,7 @@ if ($_SESSION['user_id'] != '' || $_SESSION['user_id'] != null) {
         var withdraw = $('#withdraw').val();
 
         console.log(withdraw);
-        $.post('validatePassword.php', {
+        $.post('./php/sendWithdrawelRequest.php', {
           "pass": pass,
           "amount": withdraw
         }, function(data) {
@@ -110,7 +110,6 @@ if ($_SESSION['user_id'] != '' || $_SESSION['user_id'] != null) {
           if (data.success == 1) {
             $('#withdraw').val('');
             alert('Done');
-
           } else {
             alert('Wrong Password');
           }

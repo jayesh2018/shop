@@ -6,7 +6,11 @@ if (!isset($_SESSION['admin'])) {
   location.href="login.php";
   </script>';
 }
-$query = "SELECT register_table.user_id,register_table.name,withdrawl_request.amount,withdrawl_request.status FROM withdrawl_request INNER JOIN register_table ON register_table.user_id = withdrawl_request.user_id group by withdrawl_request.user_id order by register_table.user_id";
+$query = "SELECT R.user_id,R.name,W.amount,W.status
+FROM withdrawl_request W
+INNER JOIN register_table R
+ON R.user_id = W.user_id
+WHERE W.status=0";
 $result = mysqli_query($conn, $query);
 
 ?>
@@ -139,12 +143,16 @@ $result = mysqli_query($conn, $query);
             updateid: updateid
           },
           success: function(data) {
-
             if (data.status == 1) {
               req.prop('disabled', false);
               req.parent().html(data.html);
               console.log(data.html);
               // $('#tdchng_' + updateid).html(data.html);
+            } else {
+              console.log('status 0');
+              req.prop('disabled', false);
+              req.parent().html(data.html);
+              console.log(data.html);
             }
           }
 
