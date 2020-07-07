@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 require('../connection.php');
 $sql="";
@@ -15,7 +15,7 @@ if(isset($_GET['room']))
 	if($room!="0")
 	{
 		$sql=" where room='".$room."'";
-		
+
 	}
 }
 ?>
@@ -61,7 +61,7 @@ if(isset($_GET['room']))
                         <div class="d-flex justify-content-between">
                             <div class="d-flex flex-column justify-content-center">
                                 <form action="#" class="form-inline">
-                                <span> 
+                                <span>
 								<select name="room" id="room" class="form-control">
 								<option value="0">--Select Room--</option>
 
@@ -104,7 +104,7 @@ if(isset($_GET['room']))
 			</thead>
 			<tbody>
 				<?php
-				$query = "SELECT * FROM winner_history $sql order by date_added desc";
+				$query = "SELECT * FROM winner_history $sql order by date_added desc limit 1000";
 				// echo $query;
 				$result = mysqli_query($conn, $query);
 				if ($result->num_rows > 0) {

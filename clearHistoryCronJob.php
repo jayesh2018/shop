@@ -1,6 +1,6 @@
 <?php
 
-require('./connection.php');
+require('connection.php');
 date_default_timezone_set("asia/kolkata");
 
 $dateTime = new DateTime();
