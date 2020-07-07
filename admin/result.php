@@ -104,7 +104,7 @@ if(isset($_GET['room']))
 			</thead>
 			<tbody>
 				<?php
-				$query = "SELECT * FROM winner_history $sql order by date_added desc limit 1000";
+				$query = "SELECT * FROM winner_history $sql order by date_added desc";
 				// echo $query;
 				$result = mysqli_query($conn, $query);
 				if ($result->num_rows > 0) {
